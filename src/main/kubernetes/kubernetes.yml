@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    eventing.knative.dev/connector: log-sink
+  name: kn-connector-sink-log
+spec:
+  selector:
+    matchLabels:
+      eventing.knative.dev/connector: log-sink
+  template:
+    metadata:
+      labels:
+        eventing.knative.dev/connector: log-sink
+    spec:
+      containers:
+      - name: kn-connector-sink-log
+---
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  annotations:
+    eventing.knative.dev/creator: kn-connectors
+  labels:
+    eventing.knative.dev/connector: log-sink
+    eventing.knative.dev/broker: default
+  name: kn-connector-sink-log
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: dev.knative.connector.event.timer
+  subscriber:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: kn-connector-sink-log
+    uri: /events
