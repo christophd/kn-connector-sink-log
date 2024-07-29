@@ -1,7 +1,7 @@
 {
   "resources": [
     {
-      "name": "dev.knative.connector.events",
+      "name": "default",
       "type": "event",
       "endpointKind": "source",
       "path": "/events",

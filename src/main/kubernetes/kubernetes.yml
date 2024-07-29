@@ -27,9 +27,6 @@ metadata:
   name: kn-connector-sink-log
 spec:
   broker: default
-  filter:
-    attributes:
-      type: dev.knative.connector.event.timer
   subscriber:
     ref:
       apiVersion: v1
